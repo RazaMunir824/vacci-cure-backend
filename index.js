@@ -1,5 +1,6 @@
 const express =  require('express');
 const bodyParser = require('body-parser')
+const cors = require('cors')
 const app = express()
 
 //Files
@@ -10,6 +11,7 @@ const logout = require('./routes/logout')
 //MiddleWare
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+app.use(cors())
 
 //Routes
 app.use('/api' , user)
