@@ -1,11 +1,13 @@
 const express = require("express");
 const db = require("../DbConnection");
 const router = express.Router();
+const isAuthorized = require("../middlewares/isAuthorized");
 
-router.get("/child", (req, res) => {
-  let email = "ali@gmail.com";
+router.get("/child",isAuthorized, (req, res) => {
+  let email = "ali@gmail.co";
   return db
     .select("*")
+    .returning('*')
     .from("child")
     .where("registered_by", "=", email)
     .then((data) => res.json(data[0]))

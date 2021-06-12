@@ -1,5 +1,9 @@
 const express =  require('express');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const cookieParser = require("cookie-parser");
+require("dotenv").config();
+const sms = require("./sms");
 const app = express()
 
 //Files
@@ -12,6 +16,8 @@ const child = require("./routes/child");
 //MiddleWare
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(cors());
 
 //Routes
 app.use('/api' , user)

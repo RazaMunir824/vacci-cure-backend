@@ -6,7 +6,7 @@ const router = express.Router();
 router.get("/user/:id", (req, res) => {
   return db
     .select("*")
-    .from("user")
+    .from("users")
     .where({ user_id: req.params.id })
     .then((data) => res.json(data));
 });
@@ -36,7 +36,7 @@ router.post("/register", (req, res) => {
   //encrypting password
   let hash = bcrypt.hashSync(password, 10);
 
-  return db("user")
+  return db("users")
     .returning("*")
     .insert({
       username,
