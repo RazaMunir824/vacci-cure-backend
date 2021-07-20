@@ -1,0 +1,6 @@
+{
+    "jwtSecret": "Sl_MySecret",
+    "TWILIO_ACCOUNT_SID":"ACffae459385de3c87e6afc7ea9ba51067",
+    "TWILIO_AUTH_TOKEN":"a23ce3b28b039c63b4bba67e177118d1",
+    "TWILIO_MSG_SID":"677777"
+}

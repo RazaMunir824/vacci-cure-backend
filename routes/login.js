@@ -3,6 +3,10 @@ const router = express.Router();
 const db = require("../DbConnection");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const config = require('config');
+
+//JWT SECRET
+const dbb = config.get('jwtSecret');
 
 router.post("/login", (req, res) => {
   const { email, password } = req.body;
@@ -23,16 +27,15 @@ router.post("/login", (req, res) => {
             .from("users")
             .where("email", "=", email)
             .then((data) => {
-              const token = jwt.sign(data[0], process.env.JWT_SECRET, {
-                expiresIn: "1h",
-              });
+              const token = jwt.sign(data[0], config.get('jwtSecret'), { expiresIn: "1h" });
                 return res.status(200).json({ data: data[0], token: token });
             })
             .catch((err) =>
-              res.status(400).json({ message: "Password or email incorrect." })
+             res.status(400).json({ message: "Password or email incorrect." })
+             //console.log(err)
             );
         } else {
-          res.status(400).json({ message: "Password or email incorrect." });
+          res.status(400).json({ message: "Password or email incorrect else part." });
         }
       })
       .catch((err) => {
@@ -48,14 +51,12 @@ router.post("/login", (req, res) => {
                 .where("email", "=", email)
                 .then((data) => {
                   //setting up a cookie as jwt
-                  const token = jwt.sign(data[0], process.env.JWT_SECRET);
-
-                  return res.status(200).json({ data: data[0], token: token });
+                  const token = jwt.sign(data[0], config.get('jwtSecret'), { expiresIn: "1h" });
+                    return res.status(200).json({ data: data[0], token: token });
                 })
                 .catch((err) =>
-                  res
-                    .status(400)
-                    .json({ message: "Password or email incorrect." })
+                  res.status(400)  .json({ message: "Password or email incorrect." })
+                  //console.log(err)
                 );
             } else {
               res.status(400).json({ message: "Password or email incorrect." });
